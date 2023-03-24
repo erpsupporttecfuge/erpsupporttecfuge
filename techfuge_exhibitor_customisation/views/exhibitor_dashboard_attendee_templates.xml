@@ -1,0 +1,194 @@
+<odoo>
+
+    <template id="portal_exhibitor_dashboard_attendee_details" name="Exhibitor Dashboard Attendee Details">
+        <t t-call="website.layout">
+            <div class='dashboard'>
+                <t t-call="techfuge_exhibitor_customisation.portal_exhibitor_dashboard_side_nav_bar"/>
+                <div class='dashboard-app'>
+                    <header class='dashboard-toolbar'>
+                        <a href="#!" class="menu-toggle d-block d-sm-none">
+                            <i class="fa fa-bars"></i>
+                        </a>
+                        <div class="d-flex w-100">
+							<div class="p-2 align-self-center">
+							<img  src="/techfuge_exhibitor_customisation/static/src/img/hfs_logo_white.png"
+                                                         alt="" width="100"/>
+							</div>
+                            <div class="p-2 align-self-center w-100">
+                                <h4 class="dashboard-toolbar-header">Attendee Details</h4>
+                            </div>
+                        </div>
+                    </header>
+                    <div class='dashboard-content pt-2'>
+                        <div class='container'>
+                            <div class="row">
+                                <div class="col-12 bg-blue rounded p-2" style="border-bottom:1px solid #B9E9F8;">
+                                    <h5 class="mb-0">Add Attendee Details</h5>
+                                </div>
+                            </div>
+
+                            <form action="/submit/attendee_badge_request" method="post" id="attendee_badge_request_form"
+                                  enctype="multipart/form-data">
+                                <div class="row mt-4">
+                                    <div class="col-md-4 mb-4">
+                                        <div class="form-group">
+                                            <label for="exh_title" class="font-weight-normal">
+                                                Title
+                                                <span class="text-danger">*</span>
+                                            </label>
+                                            <select data-show-content="true" class="form-control" name="exh_title"
+                                                    required="required">
+                                                <option>Select an option</option>
+                                                <option>Mr.</option>
+                                                <option>Mrs.</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 mb-4">
+                                        <div class="form-group">
+                                            <label for="exh_first_name">
+                                                First Name
+                                                <span class="text-danger">*</span>
+                                            </label>
+                                            <input type="text" class="form-control" placeholder="Enter your name"
+                                                   id="exh_first_name" name="exh_first_name" required="required"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 mb-4">
+                                        <div class="form-group">
+                                            <label for="exh_last_name">
+                                                Last Name
+                                                <span class="text-danger">*</span>
+                                            </label>
+                                            <input type="text" class="form-control" placeholder="Enter your last name"
+                                                   id="exh_last_name" name="exh_last_name" required="required"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 mb-4 mb-md-0">
+                                        <div class="form-group">
+                                            <label for="exh_designation">
+                                                Designation
+                                                <span class="text-danger">*</span>
+                                            </label>
+                                            <input type="text" class="form-control" placeholder="" id="exh_designation"
+                                                   name="exh_designation" required="required"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 mb-4 mb-md-0">
+                                        <div class="form-group">
+                                            <label for="exh_mobile">Mobile Number
+                                                <span class="text-danger">*</span>
+                                            </label>
+                                            <input type="text" class="form-control" placeholder="Enter your last name"
+                                                   id="exh_mobile" name="exh_mobile" required="required"/>
+                                            <small>Please add country code (ex : +97)</small>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 mb-4 mb-md-0">
+                                        <div class="form-group">
+                                            <label for="exh_email">
+                                                Email ID
+                                                <span class="text-danger">*</span>
+                                            </label>
+                                            <input type="email" class="form-control" placeholder="mail@example.com"
+                                                   id="exh_email" name="exh_email" required="required"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 mb-4">
+                                        <div class="form-group">
+                                            <label for="exh_landline">
+                                                Landline Number
+                                                <span class="text-danger">*</span>
+                                            </label>
+                                            <input type="text" class="form-control" placeholder="Enter your last name"
+                                                   id="exh_landline" name="exh_landline" required="required"/>
+                                            <small>Please add country code (ex : +97)</small>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row mt-0 mt-md-4">
+                                    <div class="col-12 p-0">
+                                        <div class="d-flex flex-sm-row flex-column justify-content-end">
+                                            <div class="mr-auto p-2">
+                                                <button type="submit" class="btn btn-orange w-100 btn-orange-padding">
+                                                    Submit &amp; Generate Badge
+                                                </button>
+                                            </div>
+                                            <div class="p-2">
+                                                <button type="button" class="btn btn-red-light w-100"
+                                                        id="btn_clear_all">
+                                                    Clear All
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+
+                            <div class="row mt-4">
+                                <div class="col-12 bg-blue rounded p-2">
+                                    <h5 class="mb-0">All Attendees</h5>
+                                </div>
+                            </div>
+
+                            <div class="row mt-2">
+                                <div class="col-12 p-0">
+                                    <div class="table-responsive rounded">
+                                        <table class="table table-bordered text-center">
+                                            <tr class="bg-blue-light">
+                                                <th>Name</th>
+                                                <th>Designation</th>
+                                                <th>Mobile Number</th>
+                                                <th>Email ID</th>
+                                                <th>Landline Number</th>
+                                                <th/>
+                                            </tr>
+                                            <tr t-foreach="exhibitor_attendees" t-as="attendee">
+                                                <td>
+                                                    <p t-esc="attendee.attendee_full_name"/>
+                                                </td>
+                                                <td>
+                                                    <p t-esc="attendee.designation"/>
+                                                </td>
+                                                <td>
+                                                    <p t-esc="attendee.mobile"/>
+                                                </td>
+                                                <td>
+                                                    <p t-esc="attendee.email"/>
+                                                </td>
+                                                <td>
+                                                    <p t-esc="attendee.phone"/>
+                                                </td>
+                                                <td>
+                                                    <div class="d-flex flex-sm-row flex-column">
+                                                        <div class="mr-auto p-2">
+                                                            <a t-attf-href="/web/content/#{attendee.badge_attachment_id.id}?download=true"
+                                                               target="_blank" aria-label="Download Badge"
+                                                               style="text-decoration: none; color: #F9A115">
+                                                                <i class="fa fa-download"></i>
+                                                            </a>
+                                                        </div>
+                                                        <div class="p-2">
+                                                            <a href="/exhibitor_dashboard/attendee_details"
+                                                               aria-label="Edit Info"
+                                                               style="text-decoration: none; color: #0274be">
+                                                                <i class="fa fa-edit"></i>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+</odoo>

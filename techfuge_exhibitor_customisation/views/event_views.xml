@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_event_form_inherit_exhibitor" model="ir.ui.view">
+        <field name="name">event.event.form.inherit</field>
+        <field name="model">event.event</field>
+        <field name="inherit_id" ref="event.view_event_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='kanban_state']" position="after">
+                <field name="event_logo" widget="image" class="oe_avatar"/>
+            </xpath>
+            <xpath expr="//field[@name='kanban_state']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//button[@name='%(event.act_event_registration_from_event)d']" position="after">
+                <button name="%(techfuge_exhibitor_customisation.action_view_exhibitor_contracts)d"
+                        type="action"
+                        class="oe_stat_button"
+                        icon="fa-file-text-o"
+                        string="Exhibitor Contracts">
+                </button>
+            </xpath>
+            <xpath expr="//notebook" position="inside">
+                <page name="stand_details" string="Stand Details">
+                    <field name="exhibitor_stand_ids">
+                        <tree editable="bottom" no_open="1">
+                            <field name="hall_id"/>
+                            <field name="stand_number"/>
+                            <field name="stand_description"/>
+                            <field name="stand_width"/>
+                            <field name="stand_depth"/>
+                            <field name="stand_size"/>
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

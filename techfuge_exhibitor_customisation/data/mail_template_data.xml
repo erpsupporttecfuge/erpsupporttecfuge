@@ -1,0 +1,386 @@
+<?xml version="1.0" ?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="mail_template_sale_quotation_exhibitor" model="mail.template">
+            <field name="name">Exhibitor Registration: Send Quotation to Exhibitor</field>
+            <field name="model_id" ref="sale.model_sale_order"/>
+            <field name="subject">HIVE FURNITURE SHOW 2023 : QUOTATION {{ object.name }} DATED {{ object.date_order.strftime('%d-%B-%Y') }}</field>
+            <field name="email_from">HIVE FURNITURE SHOW &lt;exhibit@hivefurnitureshow.com&gt;</field>
+            <field name="email_to">{{ object.partner_id.email }}</field>
+            <field name="description">Sent quotation to exhibitor</field>
+            <field name="body_html" type="html">
+                <div style="margin: 0px; padding: 0px;">
+                    <p style="margin: 0px; padding: 0px; font-size: 12px;">
+                        Hello,
+                        <br/>
+                        <br/>
+                        Please find attached
+                        <b>
+                            Quotation #
+                            <span t-out="object.name or ''"/>
+                            , Hall no.
+                            <t t-if="object.hall_ids">
+                                <span t-out="', '.join(object.hall_ids.mapped('name'))"/>
+                            </t>
+                            , Stall no.
+                            <t t-if="object.stand_ids">
+                                <span t-out="', '.join(object.stand_ids.mapped('stand_number'))"/>
+                            </t>
+                            , Area
+                            <span t-out="object.total_area or ''"/>
+                            SQM and USD
+                            <span t-out="object.amount_total or ''"/>
+                            Including VAT.
+                        </b>
+                        <br/>
+                        <br/>
+                        To secure your spot, Kindly confirm the quotation at the earliest.
+                        <br/>
+                        <br/>
+                        In case of any queries, please feel free to reach out to us.
+                        <br/>
+                        <br/>
+                        We look forward to having you on board at Hive Furniture &amp; Home Accessories Trade show.
+                        <br/>
+                        <br/>
+                        Thanks and Regards
+                        <br/>
+                        <br/>
+                        <b>Accounts Department</b>
+                        <br/>
+                        OMG Exhibitions and Conference
+                        <br/>
+                        1605, Sidra Towers, PO Box 3051, Sheikh Zayed Road,
+                        <br/>
+                        Dubai, UAE
+                        <br/>
+                        <b>Cell no : +971 50 462 3913</b>
+                        <br/>
+                        <b>Landline : +971 4 566 5205</b>
+                        <br/>
+                        <br/>
+                    </p>
+                </div>
+            </field>
+            <field name="report_template" ref="sale.action_report_saleorder"/>
+            <field name="report_name">{{ (object.name or '').replace('/','_') }}</field>
+            <field name="lang">{{ object.partner_id.lang }}</field>
+            <field name="auto_delete" eval="False"/>
+        </record>
+
+        <record id="mail_template_sale_exhibitor_agreement" model="mail.template">
+            <field name="name">Exhibitor Registration: Send Exhibitor Agreement</field>
+            <field name="model_id" ref="sale.model_sale_order"/>
+            <field name="subject">HIVE FURNITURE SHOW 2023 : AGREEMENT FOR {{ object.company_id.name }} DATED {{ object.date_order.strftime('%d-%B-%Y') }}</field>
+            <field name="email_from">HIVE FURNITURE SHOW &lt;exhibit@hivefurnitureshow.com&gt;</field>
+            <field name="email_to">{{ object.partner_id.email }}</field>
+            <field name="description">Sent exhibitor agreement to customers on order confirmation</field>
+            <field name="body_html" type="html">
+                <div style="margin: 0px; padding: 0px;">
+                    <p style="margin: 0px; padding: 0px; font-size: 12px;">
+                        Hello,
+                        <br/>
+                        <br/>
+                        With reference to
+                        <b>
+                            Quotation no #
+                            <span t-out="object.name or ''"/>
+                        </b>
+                        approved by your company, please find attached
+                        <b>
+                            Space allocation Agreement for Hall no.
+                            <t t-if="object.hall_ids">
+                                <span t-out="', '.join(object.hall_ids.mapped('name'))"/>
+                            </t>
+                            , Stall no.
+                            <t t-if="object.stand_ids">
+                                <span t-out="', '.join(object.stand_ids.mapped('stand_number'))"/>
+                            </t>
+                            , Area
+                            <span t-out="object.total_area or ''"/>
+                            SQM and USD
+                            <span t-out="object.amount_total or ''"/>
+                            Including VAT.
+                        </b>
+                        <br/>
+                        <br/>
+                        Please review all details of the agreement to be correct as per agreed terms.
+                        <br/>
+                        <br/>
+                        Kindly arrange to take a copy of the same , sign by authorized person &amp; put company stamp
+                        on all pages of the agreement &amp; send scanned copy as PDF file , back to us as
+                        acknowledgement of your participation for HFS2023!
+                        <br/>
+                        <br/>
+                        In case of any queries, please feel free to reach out to us.
+                        <br/>
+                        <br/>
+                        We look forward to having you on board at Hive Furniture &amp; Home Accessories Trade show
+                        and have a very successful event.
+                        <br/>
+                        <br/>
+                        Thanks and Regards
+                        <br/>
+                        <br/>
+                        <b>Accounts Department</b>
+                        <br/>
+                        OMG Exhibitions and Conference
+                        <br/>
+                        1605, Sidra Towers, PO Box 3051, Sheikh Zayed Road,
+                        <br/>
+                        Dubai, UAE
+                        <br/>
+                        <b>Cell no : +971 50 462 3913</b>
+                        <br/>
+                        <b>Landline : +971 4 566 5205</b>
+                        <br/>
+                        <br/>
+                    </p>
+                </div>
+            </field>
+            <field name="report_template" ref="techfuge_exhibitor_customisation.action_report_exhibitor_agreement"/>
+            <field name="report_name">{{ 'Exhibitor Agreement - %s' % (object.partner_id.name or '') }}</field>
+            <field name="lang">{{ object.partner_id.lang }}</field>
+            <field name="auto_delete" eval="False"/>
+        </record>
+
+        <record id="mail_template_sale_proforma_exhibitor" model="mail.template">
+            <field name="name">Exhibitor Registration: Send Pro-forma to Exhibitor</field>
+            <field name="model_id" ref="sale.model_sale_order"/>
+            <field name="subject">HIVE FURNITURE SHOW 2023 : PROFORMA INVOICE {{ object.name }} DATED {{ object.date_order.strftime('%d-%B-%Y') }}</field>
+            <field name="email_from">HIVE FURNITURE SHOW &lt;exhibit@hivefurnitureshow.com&gt;</field>
+            <field name="email_to">{{ object.partner_id.email }}</field>
+            <field name="description">Sent proforma invoice to exhibitor</field>
+            <field name="body_html" type="html">
+                <div style="margin: 0px; padding: 0px;">
+                    <p style="margin: 0px; padding: 0px; font-size: 12px;">
+                        Hello,
+                        <br/>
+                        <br/>
+                        As per confirmed Quotation &amp; Signed Agreement, Please find attached
+                        <b>
+                            Proforma Invoice #
+                            <span t-out="object.name or ''"/>
+                            , Hall no.
+                            <t t-if="object.hall_ids">
+                                <span t-out="', '.join(object.hall_ids.mapped('name'))"/>
+                            </t>
+                            , Stall no.
+                            <t t-if="object.stand_ids">
+                                <span t-out="', '.join(object.stand_ids.mapped('stand_number'))"/>
+                            </t>
+                            , Area
+                            <span t-out="object.total_area or ''"/>
+                            SQM and USD
+                            <span t-out="object.amount_total or ''"/>
+                            Including VAT.
+                        </b>
+                        <br/>
+                        <br/>
+                        To secure your spot at Hive Furniture &amp; Home Accessories Trade show , Kindly confirm the
+                        quotation at the earliest.
+                        <br/>
+                        <br/>
+                        In case of any queries, please feel free to reach out to us.
+                        <br/>
+                        <br/>
+                        We look forward to having you on board at Hive Furniture &amp; Home Accessories Trade show.
+                        <br/>
+                        <br/>
+                        Thanks and Regards
+                        <br/>
+                        <br/>
+                        <b>Accounts Department</b>
+                        <br/>
+                        OMG Exhibitions and Conference
+                        <br/>
+                        1605, Sidra Towers, PO Box 3051, Sheikh Zayed Road,
+                        <br/>
+                        Dubai, UAE
+                        <br/>
+                        <b>Cell no : +971 50 462 3913</b>
+                        <br/>
+                        <b>Landline : +971 4 566 5205</b>
+                        <br/>
+                        <br/>
+                    </p>
+                </div>
+            </field>
+            <field name="report_template" ref="sale.action_report_pro_forma_invoice"/>
+            <field name="report_name">{{ 'PRO-FORMA - %s' % (object.name or '').replace('/','_') }}</field>
+            <field name="lang">{{ object.partner_id.lang }}</field>
+            <field name="auto_delete" eval="False"/>
+        </record>
+
+        <record id="mail_template_send_invoice_exhibitor" model="mail.template">
+            <field name="name">Exhibitor Registration: Send Invoice to Exhibitor</field>
+            <field name="model_id" ref="account.model_account_move"/>
+            <field name="subject">HIVE FURNITURE SHOW 2023 : INVOICE {{ object.name }} DATED {{ object.invoice_date.strftime('%d-%B-%Y') }}</field>
+            <field name="email_from">HIVE FURNITURE SHOW &lt;exhibit@hivefurnitureshow.com&gt;</field>
+            <field name="email_to">{{ object.partner_id.email }}</field>
+            <field name="description">Sent quotation to exhibitor</field>
+            <field name="body_html" type="html">
+                <div style="margin: 0px; padding: 0px;">
+                    <p style="margin: 0px; padding: 0px; font-size: 12px;">
+                        Hello,
+                        <br/>
+                        <br/>
+                        As per Payment received by us, Please find attached
+                        <b>
+                            Tax (Commercial) Invoice #
+                            <span t-out="object.name or ''"/>
+                            , Hall no.
+                            <!--                            <t t-if="object.hall_ids">-->
+                            <!--                                <span t-out="', '.join(object.hall_ids.mapped('name'))"/>-->
+                            <!--                            </t>-->
+                            , Stall no.
+                            <!--                            <t t-if="object.stand_ids">-->
+                            <!--                                <span t-out="', '.join(object.stand_ids.mapped('stand_number'))"/>-->
+                            <!--                            </t>-->
+                            , Area
+                            <!--                            <span t-out="object.total_area or ''"/>-->
+                            SQM and USD
+                            <!--                            <span t-out="object.amount_total or ''"/>-->
+                            Including VAT.
+                        </b>
+                        <br/>
+                        <br/>
+                        Kindly process the balance Payment as per due dates.
+                        <br/>
+                        <br/>
+                        (Please ignore, if full &amp; final payment is already made.)
+                        <br/>
+                        <br/>
+                        In case of any queries, please feel free to reach out to us.
+                        <br/>
+                        <br/>
+                        We wish you a very successful event at Hive Furniture &amp; Home Accessories Trade show.
+                        <br/>
+                        <br/>
+                        Thanks and Regards
+                        <br/>
+                        <br/>
+                        <b>Accounts Department</b>
+                        <br/>
+                        OMG Exhibitions and Conference
+                        <br/>
+                        1605, Sidra Towers, PO Box 3051, Sheikh Zayed Road,
+                        <br/>
+                        Dubai, UAE
+                        <br/>
+                        <b>Cell no : +971 50 462 3913</b>
+                        <br/>
+                        <b>Landline : +971 4 566 5205</b>
+                        <br/>
+                        <br/>
+                    </p>
+                </div>
+            </field>
+            <field name="report_template" ref="account.account_invoices"/>
+            <field name="report_name">{{ (object.name or '').replace('/','_') }}</field>
+            <field name="lang">{{ object.partner_id.lang }}</field>
+            <field name="auto_delete" eval="False"/>
+        </record>
+
+        <!-- Mail template for sending exhibitor badge -->
+        <record id="email_template_send_badge_mail_to_exhibitor" model="mail.template">
+            <field name="name">Exhibitor Registration: Send Badge to Exhibitor</field>
+            <field name="model_id" ref="event.model_event_registration"/>
+            <field name="email_from">HIVE FURNITURE SHOW &lt;exhibit@hivefurnitureshow.com&gt;</field>
+            <field name="email_to">{{ object.email }}</field>
+            <field name="subject">Your Badge for HFS 2023 is now ready !</field>
+            <field name="description">Sent badge to exhibitor</field>
+            <field name="body_html" type="html">
+                <table align="center" width="100%" style="width: 100%;">
+                    <tr>
+                        <td/>
+                        <td align="center" width="600" style="width: 600px;">
+                            <table align="center" border="0" width="100%" style="width: 100%;">
+                                <tr>
+                                    <td align="center">
+                                        <img src="/techfuge_customisation/static/src/img/qr_ready_mail_poster.jpg"
+                                             width="700" height="1076"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="center" style="padding: 15px 0px 10px 0px;">
+                                        <table align="center" border="0" width="50%" style="width: 50%;">
+                                            <tr>
+                                                <td align="right">
+                                                    <a href="https://www.linkedin.com/sharing/share-offsite/?mini=true&amp;url=https://www.hivefurnitureshow.com/why-visit/"
+                                                       target="_blank" style="color: #FFFFFF;">
+                                                        <img src="/techfuge_customisation/static/src/img/linkedin_icon.png"
+                                                             class="img" width="80" height="80"
+                                                             style="border-radius: 5px;"/>
+                                                    </a>
+                                                </td>
+                                                <td align="left">
+                                                    <a href="https://www.facebook.com/sharer/sharer.php?u=https://www.hivefurnitureshow.com/why-visit/"
+                                                       target="_blank">
+                                                        <img src="/techfuge_customisation/static/src/img/facebook_icon.png"
+                                                             class="img" width="80" height="80"
+                                                             style="border-radius: 5px; margin-left: 15px;"/>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="center" style="font-size: 14px; padding: 10px;">
+                                        <a href="https://www.hivefurnitureshow.com/faqs/"
+                                           target="_blank" style="color: black;">
+                                            <div style="width: 232px; height: 40px;">
+                                                <u>
+                                                    <h3 style="font-size: 16px;">
+                                                        Click here to view FAQs
+                                                    </h3>
+                                                </u>
+                                            </div>
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="font-size: 14px;">
+                                        <div>
+                                            If you have any queries, please contact
+                                            <a href="mailto:info@hivefurnitureshow.com" target="_blank">
+                                                info@hivefurnitureshow.com
+                                            </a>
+                                            or call our landline +971 4 566 5205
+                                            <br/>
+                                            <br/>
+                                            Your sincerely,
+                                            <br/>
+                                            <br/>
+                                            Team HIVE
+                                            <br/>
+                                            OMG Exhibitions and Conferences
+                                            <br/>
+                                            Dubai, UAE
+                                            <br/>
+                                            <br/>
+                                            Landline : +971 4 566 5205
+                                            <br/>
+                                            Mobile 1 : +971 54 998 0154
+                                            <br/>
+                                            Mobile 2 : +971 50 462 3913
+                                            <br/>
+                                            www.hivefurnitureshow.com
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td/>
+                    </tr>
+                </table>
+            </field>
+            <field name="auto_delete" eval="False"/>
+            <field name="report_template" ref="techfuge_exhibitor_customisation.action_report_exhibitor_badge"/>
+            <field name="report_name">Exhibitor Badge</field>
+        </record>
+
+    </data>
+</odoo>

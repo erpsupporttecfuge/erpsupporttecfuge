@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_exhibitor_hotel_request_form" model="ir.ui.view">
+            <field name="name">exhibitor.hotel.request.form</field>
+            <field name="model">exhibitor.hotel.request</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <field name="booking_status" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="attendee_full_name" string="Name"/>
+                            <h1>
+                                <field name="attendee_full_name" class="oe_inline" readonly="1"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="room_type" readonly="1"/>
+                                <field name="checkin_datetime" readonly="1"/>
+                                <field name="no_of_nights" readonly="1"/>
+                                <field name="event_id" readonly="1" options="{'no_open': True}"/>
+                            </group>
+                            <group>
+                                <field name="no_of_rooms" readonly="1"/>
+                                <field name="checkout_datetime" readonly="1"/>
+                                <field name="upload_voucher"/>
+                                <field name="exhibitor_contract_id" string="Exhibitor" readonly="1"
+                                       options="{'no_open': True}"/>
+                            </group>
+                        </group>
+                        <group string="Uploaded Documents"/>
+                        <field name="uploaded_document_ids" readonly="1">
+                            <tree no_open="1">
+                                <field name="document_type_id"/>
+                                <field name="document_note"/>
+                                <field name="document_file"/>
+                            </tree>
+                        </field>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_exhibitor_hotel_request_tree" model="ir.ui.view">
+            <field name="name">exhibitor.hotel.request.tree</field>
+            <field name="model">exhibitor.hotel.request</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="attendee_full_name" string="Name"/>
+                    <field name="event_id"/>
+                    <field name="exhibitor_contract_id"/>
+                    <field name="room_type"/>
+                    <field name="no_of_rooms"/>
+                    <field name="checkin_datetime"/>
+                    <field name="checkout_datetime"/>
+                    <field name="no_of_nights"/>
+                    <field name="booking_status"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_exhibitor_hotel_request_search" model="ir.ui.view">
+            <field name="name">exhibitor.hotel.request.search</field>
+            <field name="model">exhibitor.hotel.request</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="event_id"/>
+                    <field name="attendee_id"/>
+                    <field name="exhibitor_contract_id"/>
+                    <field name="room_type"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Event" name="group_by_event_id" domain="[]" context="{'group_by':'event_id'}"/>
+                        <filter string="Attendee" name="group_by_attendee_id" domain="[]"
+                                context="{'group_by':'attendee_id'}"/>
+                        <filter string="Exhibitor" name="group_by_exhibitor_contract_id" domain="[]"
+                                context="{'group_by':'exhibitor_contract_id'}"/>
+                        <filter string="Room Type" name="group_by_room_type" domain="[]"
+                                context="{'group_by':'room_type'}"/>
+                        <filter string="Booking Status" name="group_by_booking_status" domain="[]"
+                                context="{'group_by':'booking_status'}"/>
+                        <filter string="Check In Date" name="group_by_checkin_datetime"
+                                context="{'group_by':'checkin_datetime:day'}"/>
+                        <filter string="Check Out Date" name="group_by_checkout_datetime"
+                                context="{'group_by':'checkout_datetime:day'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+
+        <record id="action_view_exhibitor_hotel_request" model="ir.actions.act_window">
+            <field name="name">Hotel Requests</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">exhibitor.hotel.request</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_exhibitor_hotel_request_tree"/>
+            <field name="search_view_id" ref="view_exhibitor_hotel_request_search"/>
+        </record>
+
+        <menuitem name="Hotel Requests"
+                  id="menu_exhibitor_hotel_request"
+                  action="action_view_exhibitor_hotel_request"
+                  sequence="103"
+                  parent="event.menu_reporting_events"/>
+
+    </data>
+</odoo>

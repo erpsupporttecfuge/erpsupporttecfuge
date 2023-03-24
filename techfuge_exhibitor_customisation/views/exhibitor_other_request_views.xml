@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_exhibitor_other_request_form" model="ir.ui.view">
+            <field name="name">exhibitor.other.request.form</field>
+            <field name="model">exhibitor.other.request</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <field name="status" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="attendee_full_name" string="Name"/>
+                            <h1>
+                                <field name="attendee_full_name" class="oe_inline" readonly="1"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="request_type_id" readonly="1"/>
+                                <field name="exhibitor_contract_id" readonly="1" options="{'no_open': True}"/>
+                            </group>
+                            <group>
+                                <field name="request_note" readonly="1"/>
+                                <field name="event_id" readonly="1" options="{'no_open': True}"/>
+                            </group>
+                        </group>
+                        <group string="Uploaded Documents"/>
+                        <field name="uploaded_document_ids" readonly="1">
+                            <tree no_open="1">
+                                <field name="document_type_id"/>
+                                <field name="document_note"/>
+                                <field name="document_file"/>
+                            </tree>
+                        </field>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_exhibitor_other_request_tree" model="ir.ui.view">
+            <field name="name">exhibitor.other.request.tree</field>
+            <field name="model">exhibitor.other.request</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="attendee_full_name" string="Name"/>
+                    <field name="event_id"/>
+                    <field name="exhibitor_contract_id"/>
+                    <field name="request_type_id"/>
+                    <field name="request_note"/>
+                    <field name="status"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_exhibitor_other_request_search" model="ir.ui.view">
+            <field name="name">exhibitor.other.request.search</field>
+            <field name="model">exhibitor.other.request</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="event_id"/>
+                    <field name="attendee_id"/>
+                    <field name="exhibitor_contract_id"/>
+                    <field name="request_type_id"/>
+                    <field name="request_note"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Event" name="group_by_event_id" domain="[]" context="{'group_by':'event_id'}"/>
+                        <filter string="Attendee" name="group_by_attendee_id" domain="[]"
+                                context="{'group_by':'attendee_id'}"/>
+                        <filter string="Exhibitor" name="group_by_exhibitor_contract_id" domain="[]"
+                                context="{'group_by':'exhibitor_contract_id'}"/>
+                        <filter string="Request Type" name="group_by_request_type_id" domain="[]"
+                                context="{'group_by':'request_type_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_view_exhibitor_other_request" model="ir.actions.act_window">
+            <field name="name">Other Requests</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">exhibitor.other.request</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_exhibitor_other_request_tree"/>
+            <field name="search_view_id" ref="view_exhibitor_other_request_search"/>
+        </record>
+
+        <menuitem name="Other Requests"
+                  id="menu_exhibitor_other_request"
+                  action="action_view_exhibitor_other_request"
+                  sequence="104"
+                  parent="event.menu_reporting_events"/>
+
+    </data>
+</odoo>

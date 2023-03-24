@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="sale_order_portal_template_inherit_exhibitor" inherit_id="sale.sale_order_portal_template"
+              name="Sale Order Request More Info">
+        <xpath expr="//t[@t-if='sale_order._has_to_be_signed(True)']/div[3]/a" position="replace">
+            <a role="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalMoreInfo" href="#">
+                <i class="fa fa-info"/>
+                Request more info
+            </a>
+        </xpath>
+        <xpath expr="//div[@id='modaldecline']" position="after">
+            <div role="dialog" class="modal fade" id="modalMoreInfo">
+                <div class="modal-dialog">
+                    <form id="more_info" method="POST"
+                          t-attf-action="/my/orders/#{sale_order.id}/more_info?access_token=#{sale_order.access_token}"
+                          class="modal-content">
+                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                        <header class="modal-header">
+                            <h4 class="modal-title">Request for more Information</h4>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </header>
+                        <main class="modal-body">
+                            <p>
+                                Tell us the information you need about this quotation
+                            </p>
+                            <textarea rows="4" name="more_information" required="" placeholder="Your query..."
+                                      class="form-control"/>
+                        </main>
+                        <footer class="modal-footer">
+                            <button type="submit" t-att-id="sale_order.id" class="btn btn-primary">
+                                Submit
+                            </button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                Cancel
+                            </button>
+                        </footer>
+                    </form>
+                </div>
+            </div>
+        </xpath>
+    </template>
+</odoo>

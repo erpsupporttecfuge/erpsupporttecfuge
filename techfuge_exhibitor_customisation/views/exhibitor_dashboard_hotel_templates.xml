@@ -1,0 +1,175 @@
+<odoo>
+
+    <template id="portal_exhibitor_dashboard_hotel_requests" name="Exhibitor Dashboard Exhibitor Hotel Requests">
+        <t t-call="website.layout">
+            <div class='dashboard'>
+                <t t-call="techfuge_exhibitor_customisation.portal_exhibitor_dashboard_side_nav_bar"/>
+                <div class='dashboard-app'>
+                    <header class='dashboard-toolbar'>
+                        <a href="#!" class="menu-toggle d-block d-lg-none">
+                            <i class="fa fa-bars"></i>
+                        </a>
+                        <div class="d-flex w-100">
+							<div class="p-2 align-self-center">
+							<img  src="/techfuge_exhibitor_customisation/static/src/img/hfs_logo_white.png"
+                                                         alt="" width="100"/>
+							</div>
+                            <div class="p-2 align-self-center w-100">
+                                <h4 class="dashboard-toolbar-header">Hotel Booking</h4>
+                            </div>
+                        </div>
+                    </header>
+                    <div class='dashboard-content pt-3 pt-md-2'>
+                        <div class='container'>
+                            <div class="row">
+                                <div class="col-12 bg-blue rounded p-2" style="border-bottom:1px solid #B9E9F8;">
+                                    <h5 class="mb-0">Add Booking Details</h5>
+                                </div>
+                            </div>
+
+                            <form>
+                                <div class="row mt-4">
+                                    <div class="col-md-12 mb-4">
+                                        <div class="form-group">
+                                            <label for="email" class="font-weight-normal">
+                                                Select Attendee
+                                                <span class="text-danger">*</span>
+                                            </label>
+                                            <select data-show-content="true" class="form-control">
+                                                <option>Select an option</option>
+                                                <t t-foreach="exhibitor_attendees or []" t-as="attendee">
+                                                    <option t-att-value="attendee.id">
+                                                        <t t-esc="attendee.attendee_full_name"/>
+                                                    </option>
+                                                </t>
+                                            </select>
+                                            <small>
+                                                <em>Add attendees first to book hotel</em>
+                                            </small>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4 mb-4 mb-md-0">
+                                        <div class="form-group">
+                                            <label for="email">
+                                                Check in date
+                                                <span class="text-danger">*</span>
+                                            </label>
+                                            <input type="date" class="form-control" placeholder="DD/MM/YYYY"
+                                                   id="email"/>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4 mb-4 mb-md-0">
+                                        <div class="form-group">
+                                            <label for="email">
+                                                Check out date
+                                                <span class="text-danger">*</span>
+                                            </label>
+                                            <input type="date" class="form-control" placeholder="DD/MM/YYYY"
+                                                   id="email"/>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4 mb-4 mb-md-0">
+                                        <div class="form-group">
+                                            <label for="email">
+                                                Number of nights
+                                                <span class="text-danger">*</span>
+                                            </label>
+                                            <input type="email" class="form-control" placeholder="" id="email"/>
+                                            <small>
+                                                <em>Only input a numerical value</em>
+                                            </small>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12 mb-4 mb-md-0">
+                                        <div class="form-group">
+                                            <label for="email">
+                                                Upload Document
+                                                <span class="text-danger">*</span>
+                                            </label>
+                                            <input type="file" class="form-control" placeholder="" id="email"/>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="row mt-0 mt-md-4">
+
+                                    <div class="col-12 p-0">
+                                        <div class="d-flex flex-sm-row flex-column justify-content-end">
+                                            <div class="mr-auto p-0 p-md-2 mb-3">
+                                                <button type="button" class="btn btn-orange w-100 btn-orange-padding">
+                                                    Request for hotel
+                                                </button>
+                                            </div>
+
+                                            <div class="p-0 p-md-2 mb-3">
+                                                <button type="button" class="btn btn-red-light w-100">Clear all</button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </form>
+
+                            <div class="row mt-5">
+                                <div class="col-12 p-0">
+                                    <div class="table-responsive rounded">
+                                        <table class="table table-bordered text-center">
+                                            <tr class="bg-blue-light">
+                                                <th>Attendee</th>
+                                                <th>Checkin Date</th>
+                                                <th>Checkout Date</th>
+                                                <th>No. of Nights</th>
+                                                <th>Document Uploaded</th>
+                                                <th/>
+                                            </tr>
+                                            <tr t-foreach="hotel_requests" t-as="hotel">
+                                                <td>
+                                                    <p/>
+                                                </td>
+
+                                                <td>
+                                                    <p/>
+                                                </td>
+
+                                                <td>
+                                                    <p/>
+                                                </td>
+
+                                                <td>
+                                                    <p/>
+                                                </td>
+
+                                                <td>
+                                                    <p/>
+                                                </td>
+
+                                                <td>
+                                                    <button type="button" class="btn btn-red-light w-100">
+                                                        <i class="fa fa-trash-o"></i>
+                                                        Delete
+                                                    </button>
+                                                </td>
+                                            </tr>
+
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <hr class="mt-3 mb-3"/>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+</odoo>

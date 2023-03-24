@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_event_registration_form_inherit_exhibitor" model="ir.ui.view">
+        <field name="name">event.registration.form.inherit</field>
+        <field name="model">event.registration</field>
+        <field name="inherit_id" ref="event.view_event_registration_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='exhibitor_company_name']" position="before">
+                <field name="exhibitor_contract_id" string="Exhibitor Name"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <!-- Exhibitor Space Type Data -->
+        <record id="exhibitor_space_type_data_space_only" model="exhibitor.space.type">
+            <field name="name">Space Only</field>
+        </record>
+
+        <record id="exhibitor_space_type_data_package_stand" model="exhibitor.space.type">
+            <field name="name">HFS Package Stand</field>
+        </record>
+
+        <record id="techfuge_customisation.attendee_type_data_exhibitor" model="event.attendee.type">
+            <field name="badge_mail_template_id"
+                   ref="techfuge_exhibitor_customisation.email_template_send_badge_mail_to_exhibitor"/>
+        </record>
+
+    </data>
+</odoo>

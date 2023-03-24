@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_exhibitor_contract_form" model="ir.ui.view">
+            <field name="name">exhibitor.contract.form</field>
+            <field name="model">exhibitor.contract</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name" string="Name"/>
+                            <h1>
+                                <field name="name" class="oe_inline"/>
+                            </h1>
+                        </div>
+                        <group col="3" class="mb16">
+                            <group>
+                                <field name="exhibitor_name"/>
+                                <field name="landline"/>
+                                <field name="country_name"/>
+                                <field name="sale_order_id"/>
+                                <field name="enable_hotel_request"/>
+                            </group>
+                            <group>
+                                <field name="mobile"/>
+                                <field name="company_name"/>
+                                <field name="company_id" invisible="1"/>
+                                <field name="currency_id" invisible="1"/>
+                                <field name="so_amount_total" widget="monetary"
+                                       options="{'currency_field': 'currency_id'}"/>
+                                <field name="no_of_stands"/>
+                                <field name="enable_shipment_section"/>
+                            </group>
+                            <group>
+                                <field name="email"/>
+                                <field name="company_address"/>
+                                <field name="event_id"/>
+                                <field name="no_of_badges"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="commercial_details" string="Commercial Details">
+                                <field name="commercial_items_ids" readonly="1">
+                                    <tree no_open="1">
+                                        <field name="product_template_id"/>
+                                        <field name="name"/>
+                                        <field name="product_uom_qty"/>
+                                        <field name="product_uom_id" invisible="1"/>
+                                        <field name="price_unit"/>
+                                        <field name="tax_ids" widget="many2many_tags"/>
+                                        <field name="price_subtotal"/>
+                                    </tree>
+                                </field>
+                                <group col="6" class="mt-2 mt-md-0">
+                                    <group colspan="4"/>
+                                    <group class="oe_subtotal_footer oe_right" colspan="2">
+                                        <field name="tax_totals" widget="account-tax-totals-field" nolabel="1"
+                                               colspan="2" readonly="1"/>
+                                    </group>
+                                    <div class="clearfix"/>
+                                </group>
+                            </page>
+                            <page name="stand_details" string="Stand Details">
+                                <field name="stand_ids" readonly="1">
+                                    <tree editable="bottom" no_open="1">
+                                        <field name="stand_id"/>
+                                        <field name="hall_id"/>
+                                        <field name="stand_description"/>
+                                        <field name="stand_width"/>
+                                        <field name="stand_depth"/>
+                                        <field name="stand_size"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page name="badge_details" string="Badge Details">
+                                <field name="badge_ids" readonly="1">
+                                    <tree no_open="1">
+                                        <field name="attendee_full_name" string="Name"/>
+                                        <field name="designation"/>
+                                        <field name="email"/>
+                                        <field name="mobile"/>
+                                        <field name="phone" string="Landline"/>
+                                        <button name="download_badge_attachment" string="Download Badge"
+                                                class="oe_highlight" type="object" icon="fa-download"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page name="hotel_requests" string="Hotel Requests">
+                                <field name="hotel_request_ids">
+                                    <tree editable="bottom" no_open="1">
+                                        <field name="attendee_full_name" string="Name"/>
+                                        <field name="room_type"/>
+                                        <field name="no_of_rooms"/>
+                                        <field name="checkin_datetime"/>
+                                        <field name="checkout_datetime"/>
+                                        <field name="no_of_nights"/>
+                                        <field name="booking_status"/>
+                                        <field name="upload_voucher"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page name="shipment_details" string="Shipment Details">
+                                <field name="shipment_detail_ids">
+                                    <tree editable="bottom" no_open="1">
+                                        <field name="total_shipment_volume"/>
+                                        <field name="allowed_cbm"/>
+                                        <field name="extra_cbm"/>
+                                        <field name="exceeding_charges"/>
+                                        <field name="additional_charges"/>
+                                        <field name="final_charges"/>
+                                        <field name="no_of_cartons"/>
+                                        <field name="net_weight"/>
+                                        <field name="total_weight"/>
+                                        <field name="port_of_landing"/>
+                                        <field name="port_of_arrival_in_uae"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page name="uploaded_documents" string="Uploaded Documents">
+                                <field name="uploaded_document_ids" readonly="1">
+                                    <tree no_open="1">
+                                        <field name="document_type_id"/>
+                                        <field name="document_note"/>
+                                        <field name="document_file"/>
+                                        <field name="allow_upload_again"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page name="contractor_details" string="Contractor Details">
+                                <field name="contractor_ids">
+                                    <tree editable="bottom" no_open="1">
+                                        <field name="contact_person_name"/>
+                                        <field name="contact_person_designation"/>
+                                        <field name="contact_person_email"/>
+                                        <field name="contact_person_mobile"/>
+                                        <field name="contact_person_phone"/>
+                                        <field name="company_name"/>
+                                        <field name="upload_permit"/>
+                                        <field name="status"/>
+                                        <button name="approve_contractor" string="Approve" class="oe_highlight"
+                                                type="object" attrs="{'invisible': [('status', '=', 'approved')]}"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page name="payment_stages" string="Payment Stages">
+                                <field name="exhibitor_payment_stage_ids" readonly="1">
+                                    <tree editable="bottom">
+                                        <field name="name"/>
+                                        <field name="payment_type"/>
+                                        <field name="paid_percentage"/>
+                                        <field name="paid_amount"/>
+                                        <field name="payment_due_date"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" groups="base.group_user"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_exhibitor_contract_tree" model="ir.ui.view">
+            <field name="name">exhibitor.contract.tree</field>
+            <field name="model">exhibitor.contract</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name" string="Name"/>
+                    <field name="company_name"/>
+                    <field name="mobile"/>
+                    <field name="email"/>
+                    <field name="no_of_stands"/>
+                    <field name="no_of_badges"/>
+                    <field name="country_name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_exhibitor_contract_search" model="ir.ui.view">
+            <field name="name">exhibitor.contract.search</field>
+            <field name="model">exhibitor.contract</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="event_id"/>
+                    <field name="sale_order_id"/>
+                    <field name="company_name"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Event" name="group_by_event_id" domain="[]" context="{'group_by':'event_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_view_exhibitor_contracts" model="ir.actions.act_window">
+            <field name="name">Exhibitor Contracts</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">exhibitor.contract</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_exhibitor_contract_tree"/>
+            <field name="search_view_id" ref="view_exhibitor_contract_search"/>
+        </record>
+
+    </data>
+</odoo>

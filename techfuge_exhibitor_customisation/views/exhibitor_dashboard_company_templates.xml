@@ -1,0 +1,158 @@
+<odoo>
+
+    <template id="portal_exhibitor_dashboard_company_details" name="Exhibitor Dashboard Company Details">
+        <t t-set="partner" t-value="request.env.user.partner_id"/>
+        <t t-call="website.layout">
+            <div class='dashboard'>
+                <t t-call="techfuge_exhibitor_customisation.portal_exhibitor_dashboard_side_nav_bar"/>
+                <div class='dashboard-app'>
+                    <header class='dashboard-toolbar'>
+                        <a href="#!" class="menu-toggle d-block d-sm-none">
+                            <i class="fa fa-bars"></i>
+                        </a>
+                        <div class="d-flex w-100">
+							<div class="p-2 align-self-center">
+							<img  src="/techfuge_exhibitor_customisation/static/src/img/hfs_logo_white.png"
+                                                         alt="" width="100"/>
+							</div>
+                            <div class="p-2 align-self-center w-100">
+                                <h4 class="dashboard-toolbar-header">Company Details</h4>
+                            </div>
+                        </div>
+                    </header>
+                    <div class='dashboard-content pt-2'>
+                        <div class='container'>
+                            <div class="row">
+                                <div class="col-12 text-center bg-blue rounded p-2">
+                                    <h5 class="mb-0">Company Information</h5>
+                                </div>
+                            </div>
+
+                            <div class="row mt-2">
+                                <div class="col-12 p-0">
+                                    <div class="table-responsive rounded">
+                                        <table class="table table-bordered text-center">
+                                            <tr class="bg-blue-light">
+                                                <th>Company Name</th>
+                                                <th>Address</th>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <span t-esc="partner.parent_id.name"/>
+                                                </td>
+                                                <td>
+                                                    <p>
+                                                        <span t-esc="partner.parent_id.street"/>
+                                                    </p>
+                                                    <p>
+                                                        <span t-esc="partner.parent_id.street2"/>
+                                                    </p>
+                                                    <p>
+                                                        <span t-esc="partner.parent_id.city"/>
+                                                    </p>
+                                                    <p>
+                                                        <t t-if="partner.parent_id.state_id">
+                                                            <span t-esc="partner.parent_id.state_id.name"/>,
+                                                        </t>
+                                                        <span t-esc="partner.parent_id.country_id.name"/>
+                                                    </p>
+                                                    <p>
+                                                        ZIP:
+                                                        <span t-esc="partner.parent_id.zip"/>
+                                                    </p>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row mt-4">
+                                <div class="col-12 text-center bg-blue rounded p-2">
+                                    <h5 class="mb-0">Contact Person Information</h5>
+                                </div>
+                            </div>
+
+                            <div class="row mt-2">
+                                <div class="col-12 p-0">
+                                    <div class="table-responsive rounded">
+                                        <table class="table table-bordered text-center">
+                                            <tr class="bg-blue-light">
+                                                <th>Primary Contact Name</th>
+                                                <th>Phone Number</th>
+                                                <th>Email ID</th>
+                                            </tr>
+                                            <tr t-foreach="partner.parent_id.child_ids" t-as="contact">
+                                                <td>
+                                                    <p>
+                                                        <span t-esc="contact.name"/>
+                                                    </p>
+                                                </td>
+                                                <td>
+                                                    <p>
+                                                        <span t-esc="contact.mobile"/>
+                                                    </p>
+                                                </td>
+                                                <td>
+                                                    <p>
+                                                        <span t-esc="contact.email"/>
+                                                    </p>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row mt-4">
+                                <div class="col-12 text-center bg-blue rounded p-2">
+                                    <h5 class="mb-0">Stand and Exhibit Information</h5>
+                                </div>
+                            </div>
+
+                            <div class="row mt-2">
+                                <div class="col-12 p-0">
+                                    <div class="table-responsive rounded">
+                                        <table class="table table-bordered text-center">
+                                            <tr class="bg-blue-light">
+                                                <th>Hall Number</th>
+                                                <th>Number of Stands</th>
+                                                <th>Stand Numbers</th>
+                                                <th>Package Options</th>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <t t-foreach="halls" t-as="hall">
+                                                        <p style="padding-left: 10px;" t-esc="hall"/>
+                                                        <br/>
+                                                    </t>
+                                                </td>
+                                                <td>
+                                                    <p t-esc="exhibitor_contract.no_of_stands"/>
+                                                </td>
+                                                <td>
+                                                    <t t-foreach="stands" t-as="stand">
+                                                        <p style="padding-left: 10px;" t-esc="stand"/>
+                                                        <br/>
+                                                    </t>
+                                                </td>
+                                                <td>
+                                                    <t t-foreach="package_options" t-as="package">
+                                                        <p style="padding-left: 10px;" t-esc="package"/>
+                                                        <br/>
+                                                    </t>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+</odoo>
